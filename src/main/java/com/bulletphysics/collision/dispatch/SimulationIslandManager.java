@@ -25,6 +25,8 @@ package com.bulletphysics.collision.dispatch;
 
 import com.bulletphysics.BulletStats;
 import java.util.Comparator;
+import java.util.concurrent.CopyOnWriteArrayList;
+
 import com.bulletphysics.collision.broadphase.BroadphasePair;
 import com.bulletphysics.collision.broadphase.Dispatcher;
 import com.bulletphysics.collision.narrowphase.PersistentManifold;
@@ -74,7 +76,7 @@ public class SimulationIslandManager {
 			int index = 0;
 			int i;
 			for (i = 0; i < colWorld.getCollisionObjectArray().size(); i++) {
-				CollisionObject collisionObject = colWorld.getCollisionObjectArray().getQuick(i);
+				CollisionObject collisionObject = colWorld.getCollisionObjectArray().get(i);
 				collisionObject.setIslandTag(index);
 				collisionObject.setCompanionId(-1);
 				collisionObject.setHitFraction(1f);
@@ -92,7 +94,7 @@ public class SimulationIslandManager {
 			int index = 0;
 			int i;
 			for (i = 0; i < colWorld.getCollisionObjectArray().size(); i++) {
-				CollisionObject collisionObject = colWorld.getCollisionObjectArray().getQuick(i);
+				CollisionObject collisionObject = colWorld.getCollisionObjectArray().get(i);
 				if (!collisionObject.isStaticOrKinematicObject()) {
 					collisionObject.setIslandTag(unionFind.find(index));
 					collisionObject.setCompanionId(-1);
@@ -114,7 +116,7 @@ public class SimulationIslandManager {
 		return islandId;
 	}
 
-	public void buildIslands(Dispatcher dispatcher, ObjectArrayList<CollisionObject> collisionObjects) {
+	public void buildIslands(Dispatcher dispatcher, CopyOnWriteArrayList<CollisionObject> collisionObjects) {
 		BulletStats.pushProfile("islandUnionFindAndQuickSort");
 		try {
 			islandmanifold.clear();
@@ -142,7 +144,7 @@ public class SimulationIslandManager {
 				for (idx = startIslandIndex; idx < endIslandIndex; idx++) {
 					int i = getUnionFind().getElement(idx).sz;
 
-					CollisionObject colObj0 = collisionObjects.getQuick(i);
+					CollisionObject colObj0 = collisionObjects.get(i);
 					if ((colObj0.getIslandTag() != islandId) && (colObj0.getIslandTag() != -1)) {
 						//System.err.println("error in island management\n");
 					}
@@ -163,7 +165,7 @@ public class SimulationIslandManager {
 					//int idx;
 					for (idx = startIslandIndex; idx < endIslandIndex; idx++) {
 						int i = getUnionFind().getElement(idx).sz;
-						CollisionObject colObj0 = collisionObjects.getQuick(i);
+						CollisionObject colObj0 = collisionObjects.get(i);
 						if ((colObj0.getIslandTag() != islandId) && (colObj0.getIslandTag() != -1)) {
 							//System.err.println("error in island management\n");
 						}
@@ -181,7 +183,7 @@ public class SimulationIslandManager {
 					for (idx = startIslandIndex; idx < endIslandIndex; idx++) {
 						int i = getUnionFind().getElement(idx).sz;
 
-						CollisionObject colObj0 = collisionObjects.getQuick(i);
+						CollisionObject colObj0 = collisionObjects.get(i);
 						if ((colObj0.getIslandTag() != islandId) && (colObj0.getIslandTag() != -1)) {
 							//System.err.println("error in island management\n");
 						}
@@ -236,7 +238,7 @@ public class SimulationIslandManager {
 		}
 	}
 
-	public void buildAndProcessIslands(Dispatcher dispatcher, ObjectArrayList<CollisionObject> collisionObjects, IslandCallback callback) {
+	public void buildAndProcessIslands(Dispatcher dispatcher, CopyOnWriteArrayList<CollisionObject> collisionObjects, IslandCallback callback) {
 		buildIslands(dispatcher, collisionObjects);
 
 		int endIslandIndex = 1;
@@ -279,7 +281,7 @@ public class SimulationIslandManager {
 
 				for (endIslandIndex = startIslandIndex; (endIslandIndex < numElem) && (getUnionFind().getElement(endIslandIndex).id == islandId); endIslandIndex++) {
 					int i = getUnionFind().getElement(endIslandIndex).sz;
-					CollisionObject colObj0 = collisionObjects.getQuick(i);
+					CollisionObject colObj0 = collisionObjects.get(i);
 					islandBodies.add(colObj0);
 					if (!colObj0.isActive()) {
 						islandSleeping = true;

@@ -103,7 +103,7 @@ public class DiscreteDynamicsWorld extends DynamicsWorld {
 
 	protected void saveKinematicState(float timeStep) {
 		for (int i = 0; i < collisionObjects.size(); i++) {
-			CollisionObject colObj = collisionObjects.getQuick(i);
+			CollisionObject colObj = collisionObjects.get(i);
 			RigidBody body = RigidBody.upcast(colObj);
 			if (body != null) {
 				//Transform predictedTrans = new Transform();
@@ -146,7 +146,7 @@ public class DiscreteDynamicsWorld extends DynamicsWorld {
 			
 			// todo: iterate over awake simulation islands!
 			for (i = 0; i < collisionObjects.size(); i++) {
-				CollisionObject colObj = collisionObjects.getQuick(i);
+				CollisionObject colObj = collisionObjects.get(i);
 				if (getDebugDrawer() != null && (getDebugDrawer().getDebugMode() & DebugDrawModes.DRAW_WIREFRAME) != 0) {
 					Vector3f color = new Vector3f();
 					color.set(255f, 255f, 255f);
@@ -223,7 +223,7 @@ public class DiscreteDynamicsWorld extends DynamicsWorld {
 	public void clearForces() {
 		// todo: iterate over awake simulation islands!
 		for (int i = 0; i < collisionObjects.size(); i++) {
-			CollisionObject colObj = collisionObjects.getQuick(i);
+			CollisionObject colObj = collisionObjects.get(i);
 
 			RigidBody body = RigidBody.upcast(colObj);
 			if (body != null) {
@@ -238,7 +238,7 @@ public class DiscreteDynamicsWorld extends DynamicsWorld {
 	public void applyGravity() {
 		// todo: iterate over awake simulation islands!
 		for (int i = 0; i < collisionObjects.size(); i++) {
-			CollisionObject colObj = collisionObjects.getQuick(i);
+			CollisionObject colObj = collisionObjects.get(i);
 
 			RigidBody body = RigidBody.upcast(colObj);
 			if (body != null && body.isActive()) {
@@ -256,7 +256,7 @@ public class DiscreteDynamicsWorld extends DynamicsWorld {
 
 		// todo: iterate over awake simulation islands!
 		for (int i = 0; i < collisionObjects.size(); i++) {
-			CollisionObject colObj = collisionObjects.getQuick(i);
+			CollisionObject colObj = collisionObjects.get(i);
 
 			RigidBody body = RigidBody.upcast(colObj);
 			if (body != null && body.getMotionState() != null && !body.isStaticOrKinematicObject()) {
@@ -400,7 +400,7 @@ public class DiscreteDynamicsWorld extends DynamicsWorld {
 	public void setGravity(Vector3f gravity) {
 		this.gravity.set(gravity);
 		for (int i = 0; i < collisionObjects.size(); i++) {
-			CollisionObject colObj = collisionObjects.getQuick(i);
+			CollisionObject colObj = collisionObjects.get(i);
 			RigidBody body = RigidBody.upcast(colObj);
 			if (body != null) {
 				body.setGravity(gravity);
@@ -475,7 +475,7 @@ public class DiscreteDynamicsWorld extends DynamicsWorld {
 			Vector3f tmp = new Vector3f();
 
 			for (int i=0; i<collisionObjects.size(); i++) {
-				CollisionObject colObj = collisionObjects.getQuick(i);
+				CollisionObject colObj = collisionObjects.get(i);
 				RigidBody body = RigidBody.upcast(colObj);
 				if (body != null) {
 					body.updateDeactivation(timeStep);
@@ -677,7 +677,7 @@ public class DiscreteDynamicsWorld extends DynamicsWorld {
 
 			Transform predictedTrans = new Transform();
 			for (int i=0; i<collisionObjects.size(); i++) {
-				CollisionObject colObj = collisionObjects.getQuick(i);
+				CollisionObject colObj = collisionObjects.get(i);
 				RigidBody body = RigidBody.upcast(colObj);
 				if (body != null) {
 					body.setHitFraction(1f);
@@ -732,7 +732,7 @@ public class DiscreteDynamicsWorld extends DynamicsWorld {
 			Transform tmpTrans = new Transform();
 			
 			for (int i = 0; i < collisionObjects.size(); i++) {
-				CollisionObject colObj = collisionObjects.getQuick(i);
+				CollisionObject colObj = collisionObjects.get(i);
 				RigidBody body = RigidBody.upcast(colObj);
 				if (body != null) {
 					if (!body.isStaticOrKinematicObject()) {

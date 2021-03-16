@@ -57,6 +57,7 @@ import cz.advel.stack.Stack;
 import javax.vecmath.Matrix3f;
 import javax.vecmath.Quat4f;
 import javax.vecmath.Vector3f;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * CollisionWorld is interface and container for the collision detection.
@@ -67,7 +68,7 @@ public class CollisionWorld {
 
 	//protected final BulletStack stack = BulletStack.get();
 	
-	protected ObjectArrayList<CollisionObject> collisionObjects = new ObjectArrayList<CollisionObject>();
+	protected CopyOnWriteArrayList<CollisionObject> collisionObjects = new CopyOnWriteArrayList<CollisionObject>();
 	protected Dispatcher dispatcher1;
 	protected DispatcherInfo dispatchInfo = new DispatcherInfo();
 	//protected btStackAlloc*	m_stackAlloc;
@@ -85,7 +86,7 @@ public class CollisionWorld {
 	public void destroy() {
 		// clean up remaining objects
 		for (int i = 0; i < collisionObjects.size(); i++) {
-			CollisionObject collisionObject = collisionObjects.getQuick(i);
+			CollisionObject collisionObject = collisionObjects.get(i);
 
 			BroadphaseProxy bp = collisionObject.getBroadphaseHandle();
 			if (bp != null) {
@@ -240,7 +241,7 @@ public class CollisionWorld {
 		BulletStats.pushProfile("updateAabbs");
 		try {
 			for (int i=0; i<collisionObjects.size(); i++) {
-				CollisionObject colObj = collisionObjects.getQuick(i);
+				CollisionObject colObj = collisionObjects.get(i);
 
 				// only update aabb of active objects
 				if (colObj.isActive()) {
@@ -550,7 +551,7 @@ public class CollisionWorld {
 				break;
 			}
 
-			CollisionObject collisionObject = collisionObjects.getQuick(i);
+			CollisionObject collisionObject = collisionObjects.get(i);
 			// only perform raycast if filterMask matches
 			if (resultCallback.needsCollision(collisionObject.getBroadphaseHandle())) {
 				//RigidcollisionObject* collisionObject = ctrl->GetRigidcollisionObject();
@@ -603,7 +604,7 @@ public class CollisionWorld {
 		// go over all objects, and if the ray intersects their aabb + cast shape aabb,
 		// do a ray-shape query using convexCaster (CCD)
 		for (int i = 0; i < collisionObjects.size(); i++) {
-			CollisionObject collisionObject = collisionObjects.getQuick(i);
+			CollisionObject collisionObject = collisionObjects.get(i);
 
 			// only perform raycast if filterMask matches
 			if (resultCallback.needsCollision(collisionObject.getBroadphaseHandle())) {
@@ -625,7 +626,7 @@ public class CollisionWorld {
 		}
 	}
 
-	public ObjectArrayList<CollisionObject> getCollisionObjectArray() {
+	public CopyOnWriteArrayList<CollisionObject> getCollisionObjectArray() {
 		return collisionObjects;
 	}
 	
