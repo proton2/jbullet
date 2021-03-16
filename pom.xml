@@ -15,6 +15,8 @@
     </parent>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
     </properties>
     <licenses>
         <license>
@@ -122,29 +124,12 @@
                 </executions>
             </plugin>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <version>1.6</version>
-                <executions>
-                    <execution>
-                        <phase>process-classes</phase>
-                        <configuration>
-                            <tasks>
-                                <property name="compile_classpath" refid="maven.compile.classpath" />
-
-                                <taskdef name="instrument-stack" classname="cz.advel.stack.instrument.InstrumentationTask" classpath="${compile_classpath}">
-                                </taskdef>
-
-                                <instrument-stack dest="${project.build.outputDirectory}" packageName="com.bulletphysics" isolated="true">
-                                    <fileset dir="${project.build.outputDirectory}" includes="com/bulletphysics/**" />
-                                </instrument-stack>
-                            </tasks>
-                        </configuration>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                    </execution>
-                </executions>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.3</version>
+                <configuration>
+                    <source/>
+                    <target/>
+                </configuration>
             </plugin>
         </plugins>
     </build>

@@ -102,7 +102,7 @@ public class Transform {
 	}
 	
 	public void mul(Transform tr) {
-		Vector3f vec = Stack.alloc(tr.origin);
+		Vector3f vec = new Vector3f(tr.origin);
 		transform(vec);
 
 		basis.mul(tr.basis);
@@ -111,7 +111,7 @@ public class Transform {
 
 	@StaticAlloc
 	public void mul(Transform tr1, Transform tr2) {
-		Vector3f vec = Stack.alloc(tr2.origin);
+		Vector3f vec = new Vector3f(tr2.origin);
 		tr1.transform(vec);
 
 		basis.mul(tr1.basis, tr2.basis);
@@ -121,7 +121,7 @@ public class Transform {
 	public void invXform(Vector3f inVec, Vector3f out) {
 		out.sub(inVec, origin);
 
-		Matrix3f mat = Stack.alloc(basis);
+		Matrix3f mat = new Matrix3f(basis);
 		mat.transpose();
 		mat.transform(out);
 	}

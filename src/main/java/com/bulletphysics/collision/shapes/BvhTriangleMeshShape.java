@@ -35,7 +35,7 @@ import javax.vecmath.Vector3f;
  * such as bounding volume hierarchy. It is recommended to enable useQuantizedAabbCompression
  * for better memory usage.<p>
  *
- * It takes a triangle mesh as input, for example a {@link TriangleMesh} or
+ * It takes a triangle mesh as input, for example or
  * {@link TriangleIndexVertexArray}. The BvhTriangleMeshShape class allows for
  * triangle mesh deformations by a refit or partialRefit method.<p>
  *
@@ -157,7 +157,7 @@ public class BvhTriangleMeshShape extends TriangleMeshShape {
 		//#else
 
 		// first get all the nodes
-		MyNodeOverlapCallback myNodeCallback = myNodeCallbacks.get();
+		MyNodeOverlapCallback myNodeCallback = new MyNodeOverlapCallback();
 		myNodeCallback.init(callback, meshInterface);
 
 		bvh.reportAabbOverlappingNodex(myNodeCallback, aabbMin, aabbMax);
@@ -191,8 +191,8 @@ public class BvhTriangleMeshShape extends TriangleMeshShape {
 	
 	@Override
 	public void setLocalScaling(Vector3f scaling) {
-		Vector3f tmp = Stack.alloc(Vector3f.class);
-		tmp.sub(getLocalScaling(Stack.alloc(Vector3f.class)), scaling);
+		Vector3f tmp = new Vector3f();
+		tmp.sub(getLocalScaling(new Vector3f()), scaling);
 
 		if (tmp.lengthSquared() > BulletGlobals.SIMD_EPSILON) {
 			super.setLocalScaling(scaling);
@@ -216,7 +216,7 @@ public class BvhTriangleMeshShape extends TriangleMeshShape {
 	}
 
 	public void setOptimizedBvh(OptimizedBvh bvh) {
-		Vector3f scaling = Stack.alloc(Vector3f.class);
+		Vector3f scaling = new Vector3f();
 		scaling.set(1f, 1f, 1f);
 		setOptimizedBvh(bvh, scaling);
 	}
@@ -229,8 +229,8 @@ public class BvhTriangleMeshShape extends TriangleMeshShape {
 		ownsBvh = false;
 
 		// update the scaling without rebuilding the bvh
-		Vector3f tmp = Stack.alloc(Vector3f.class);
-		tmp.sub(getLocalScaling(Stack.alloc(Vector3f.class)), scaling);
+		Vector3f tmp = new Vector3f();
+		tmp.sub(getLocalScaling(new Vector3f()), scaling);
 
 		if (tmp.lengthSquared() > BulletGlobals.SIMD_EPSILON) {
 			super.setLocalScaling(scaling);
@@ -260,7 +260,7 @@ public class BvhTriangleMeshShape extends TriangleMeshShape {
 		public void processNode(int nodeSubPart, int nodeTriangleIndex) {
 			VertexData data = meshInterface.getLockedReadOnlyVertexIndexBase(nodeSubPart);
 
-			Vector3f meshScaling = meshInterface.getScaling(Stack.alloc(Vector3f.class));
+			Vector3f meshScaling = meshInterface.getScaling(new Vector3f());
 
 			data.getTriangle(nodeTriangleIndex*3, meshScaling, triangle);
 

@@ -40,13 +40,13 @@ import java.util.List;
  * }
  * 
  * public static void test() {
- *     Vector3f v1 = Stack.alloc(Vector3f.class);
+ *     Vector3f v1 = new Vector3f();
  *     v1.set(0f, 1f, 2f);
  * 
  *     Vector3f v2 = Stack.alloc(v1);
  *     v2.x = 10f;
  * 
- *     Vector3f avg = average(v1, v2, Stack.alloc(Vector3f.class));
+ *     Vector3f avg = average(v1, v2, new Vector3f());
  * }
  * </pre>
  * which is transformed into something like the following code. The actual
