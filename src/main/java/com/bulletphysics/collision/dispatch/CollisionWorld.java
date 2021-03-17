@@ -52,12 +52,11 @@ import com.bulletphysics.linearmath.IDebugDraw;
 import com.bulletphysics.linearmath.Transform;
 import com.bulletphysics.linearmath.TransformUtil;
 import com.bulletphysics.linearmath.VectorUtil;
-import com.bulletphysics.util.ObjectArrayList;
-import cz.advel.stack.Stack;
+import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import javax.vecmath.Matrix3f;
 import javax.vecmath.Quat4f;
 import javax.vecmath.Vector3f;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * CollisionWorld is interface and container for the collision detection.
@@ -68,7 +67,7 @@ public class CollisionWorld {
 
 	//protected final BulletStack stack = BulletStack.get();
 	
-	protected CopyOnWriteArrayList<CollisionObject> collisionObjects = new CopyOnWriteArrayList<CollisionObject>();
+	protected List<CollisionObject> collisionObjects = new CopyOnWriteArrayList<>();
 	protected Dispatcher dispatcher1;
 	protected DispatcherInfo dispatchInfo = new DispatcherInfo();
 	//protected btStackAlloc*	m_stackAlloc;
@@ -626,7 +625,7 @@ public class CollisionWorld {
 		}
 	}
 
-	public CopyOnWriteArrayList<CollisionObject> getCollisionObjectArray() {
+	public List<CollisionObject> getCollisionObjectArray() {
 		return collisionObjects;
 	}
 	

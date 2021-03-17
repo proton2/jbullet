@@ -25,7 +25,7 @@ package com.bulletphysics.collision.dispatch;
 
 import com.bulletphysics.BulletStats;
 import java.util.Comparator;
-import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.List;
 
 import com.bulletphysics.collision.broadphase.BroadphasePair;
 import com.bulletphysics.collision.broadphase.Dispatcher;
@@ -116,7 +116,7 @@ public class SimulationIslandManager {
 		return islandId;
 	}
 
-	public void buildIslands(Dispatcher dispatcher, CopyOnWriteArrayList<CollisionObject> collisionObjects) {
+	public void buildIslands(Dispatcher dispatcher, List<CollisionObject> collisionObjects) {
 		BulletStats.pushProfile("islandUnionFindAndQuickSort");
 		try {
 			islandmanifold.clear();
@@ -238,7 +238,7 @@ public class SimulationIslandManager {
 		}
 	}
 
-	public void buildAndProcessIslands(Dispatcher dispatcher, CopyOnWriteArrayList<CollisionObject> collisionObjects, IslandCallback callback) {
+	public void buildAndProcessIslands(Dispatcher dispatcher, List<CollisionObject> collisionObjects, IslandCallback callback) {
 		buildIslands(dispatcher, collisionObjects);
 
 		int endIslandIndex = 1;
