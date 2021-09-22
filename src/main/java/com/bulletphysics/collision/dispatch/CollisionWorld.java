@@ -52,6 +52,8 @@ import com.bulletphysics.linearmath.IDebugDraw;
 import com.bulletphysics.linearmath.Transform;
 import com.bulletphysics.linearmath.TransformUtil;
 import com.bulletphysics.linearmath.VectorUtil;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import javax.vecmath.Matrix3f;
@@ -67,7 +69,7 @@ public class CollisionWorld {
 
 	//protected final BulletStack stack = BulletStack.get();
 	
-	protected List<CollisionObject> collisionObjects = new CopyOnWriteArrayList<>();
+	protected List<CollisionObject> collisionObjects = new ArrayList<>();
 	protected Dispatcher dispatcher1;
 	protected DispatcherInfo dispatchInfo = new DispatcherInfo();
 	//protected btStackAlloc*	m_stackAlloc;
