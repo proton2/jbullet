@@ -5,4 +5,4 @@ This is non-official mavenisation of jbullet library. See http://jbullet.advel.c
 
 My changes comparing with original https://github.com/jbullet-maven/jbullet version:
 - Stack.alloc replaced by creating from constructor by new (to avoid some crashes);
-- ObjectArrayList replaced by CopyOnWriteArrayList for thread safety;
+- ObjectArrayList replaced by ArrayList;
